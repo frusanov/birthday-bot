@@ -1,0 +1,15 @@
+import { Entity, Column, OneToMany } from "typeorm";
+import { BaseEntity } from "./base";
+import { EventEntity } from "./event.entity";
+
+@Entity("users")
+export class UserEntity extends BaseEntity {
+  @Column("bigint", { unique: true })
+  tgId!: number;
+
+  @Column("json")
+  settings!: Record<string, unknown>;
+
+  @OneToMany(() => EventEntity, (event) => event.user)
+  events!: Array<EventEntity>;
+}
